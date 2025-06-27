@@ -1,0 +1,22 @@
+# FILE: templates/register.html
+
+{% extends 'school/base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ role }} Registration</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+  <h2>{{ role }} Registration</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</body>
+</html>
+
+{% endblock %}

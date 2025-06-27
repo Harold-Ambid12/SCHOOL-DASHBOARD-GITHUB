@@ -1,0 +1,32 @@
+{% extends 'school/base.html' %}
+
+{% block title %}Teacher Dashboard | School Dashboard{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 60px auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+
+    <h2 style="text-align: center; color: #28a745;">Teacher Dashboard</h2>
+    <p style="text-align: center; font-size: 1.1rem;">Welcome, <strong>{{ request.user.username }}</strong>!</p>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="{% url 'attendance_list' %}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">📋 View/Edit Attendance Records</a>
+    </div>
+
+    <h3 style="color: #333;">Student List</h3>
+    <ul style="list-style-type: none; padding: 0;">
+        {% for student in students %}
+            <li style="background-color: #f8f9fa; margin-bottom: 10px; padding: 12px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span>{{ student.username }}</span>
+                <a href="{% url 'mark_attendance' student.id %}" style="color: #007bff; text-decoration: none; font-weight: bold;">Mark Attendance</a>
+            </li>
+        {% empty %}
+            <li style="text-align: center; color: #888;">No students found.</li>
+        {% endfor %}
+    </ul>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'logout' %}" style="color: #dc3545; text-decoration: none; font-weight: bold;">Logout</a>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'school/base.html' %}
+{% block title %}Mark Attendance | School Dashboard{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 80px auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+
+    <h2 style="margin-bottom: 20px; color: #343a40;">📅 Mark Attendance for {{ student.username }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label for="status" style="display: block; margin-bottom: 8px; font-weight: 500;">Status:</label>
+            <select name="status" id="status" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+            </select>
+        </div>
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
+            ✅ Submit
+        </button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'teacher_dashboard' %}" style="color: #6c757d; text-decoration: none;">← Back to Dashboard</a>
+    </div>
+
+</div>
+{% endblock %}
