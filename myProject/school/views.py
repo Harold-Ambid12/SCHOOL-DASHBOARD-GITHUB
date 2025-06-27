@@ -4,6 +4,9 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import StudentRegisterForm, TeacherRegisterForm, LoginForm
 from .models import Attendance, CustomUser
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .forms import AttendanceForm  # Already imported
+
 
 def student_register(request):
     if request.method == 'POST':
@@ -64,3 +67,31 @@ def mark_attendance(request, student_id):
 
 def home(request):
     return render(request, 'school/home.html')
+
+def is_teacher(user):
+    return user.is_authenticated and user.user_type == 'teacher'
+
+
+@login_required
+def attendance_list(request):
+    if request.user.user_type != 'teacher':
+        return redirect('login')
+    records = Attendance.objects.all()
+    return render(request, 'school/attendance_list.html', {'records': records})
+
+@login_required
+def edit_attendance(request, pk):
+    attendance = get_object_or_404(Attendance, pk=pk)
+    form = AttendanceForm(request.POST or None, instance=attendance)
+    if form.is_valid():
+        form.save()
+        return redirect('attendance_list')
+    return render(request, 'school/edit_attendance.html', {'form': form})
+
+@login_required
+def delete_attendance(request, pk):
+    attendance = get_object_or_404(Attendance, pk=pk)
+    if request.method == 'POST':
+        attendance.delete()
+        return redirect('attendance_list')
+    return render(request, 'school/delete_attendance.html', {'attendance': attendance})

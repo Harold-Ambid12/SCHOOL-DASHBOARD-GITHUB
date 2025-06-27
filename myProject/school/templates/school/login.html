@@ -1,9 +1,43 @@
-<!-- school/templates/school/login.html -->
-<h2>Welcome</h2>
-<strong>Login Here</strong></p>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-<p>Register as <a href="{% url 'student_register' %}">Student</a> or <a href="{% url 'teacher_register' %}">Teacher</a></p>
+{% extends 'school/base.html' %}
+
+{% block title %}Login | School Dashboard{% endblock %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 60px auto; background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+
+    <h2 style="text-align: center; color: #007bff;">Welcome</h2>
+    <p style="text-align: center; font-size: 1.2rem; color: #555;">Login to your account</p>
+
+    <form method="POST" style="margin-top: 20px;">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}
+        </div>
+        <div style="margin-bottom: 15px;">
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}
+        </div>
+        <button type="submit" style="
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007bff'">
+            Login
+        </button>
+    </form>
+
+    <p style="text-align: center; margin-top: 20px; font-size: 0.95rem;">
+        Don’t have an account? <br>
+        <a href="{% url 'student_register' %}" style="color: #28a745; font-weight: bold;">Register as Student</a> |
+        <a href="{% url 'teacher_register' %}" style="color: #ffc107; font-weight: bold;">Register as Teacher</a>
+    </p>
+</div>
+{% endblock %}

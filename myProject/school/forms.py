@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
+from .models import Attendance
 
 class StudentRegisterForm(UserCreationForm):
     class Meta:
@@ -29,3 +30,8 @@ class TeacherRegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     pass
+
+class AttendanceForm(forms.ModelForm):
+    class Meta:
+        model = Attendance
+        fields = ['student', 'status']
