@@ -1,0 +1,9 @@
+<!-- school/templates/school/login.html -->
+<h2>Welcome</h2>
+<strong>Login Here</strong></p>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<p>Register as <a href="{% url 'student_register' %}">Student</a> or <a href="{% url 'teacher_register' %}">Teacher</a></p>

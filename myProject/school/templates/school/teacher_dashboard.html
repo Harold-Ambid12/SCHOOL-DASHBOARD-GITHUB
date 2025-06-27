@@ -1,0 +1,16 @@
+<!-- school/templates/school/teacher_dashboard.html -->
+<h2>Teacher Dashboard</h2>
+<p>Welcome, {{ request.user.username }}!</p>
+
+<h3>Students</h3>
+<ul>
+    {% for student in students %}
+        <li>{{ student.username }} - 
+            <a href="{% url 'mark_attendance' student.id %}">Mark Attendance</a>
+        </li>
+    {% empty %}
+        <li>No students found.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
